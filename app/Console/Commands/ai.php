@@ -76,10 +76,8 @@ class ai extends Command
         if ($i < 0 || $i >= ($width - 1) * ($height - 1) + ($width) * ($height + 1) || $game['field']['cells'][$i]['playerId'] === $playerId % 2 + 1) {
             return;
         }
-        print_r($i . '  ');
         if ($game['field']['cells'][$i]['color'] !== $colors['current']['color']) {
             $colors['next']['curColor'] = $game['field']['cells'][$i]['color'];
-            print_r($game['field']['cells'][$i]['color'] . ' ' . $colors['next']['curColor']);
             $count = $this->findColors($game, $i, $width, $height, $playerId, $colors);
             if ($count >= $colors['next']['count']) {
                 $colors['next']['prevColor'] = $colors['next']['curColor'];
@@ -105,7 +103,6 @@ class ai extends Command
         $count += $this->findColors($game, $i + $width, $width, $height, $playerId, $colors);
         $count += $this->findColors($game, $i - $width, $width, $height, $playerId, $colors);
         $playerId === 1 ? $this->findColors($game, $i - $width + 1, $width, $height, $playerId, $colors) : $this->findColors($game, $i + $width - 1, $width, $height, $playerId, $colors);
-        print_r('count =' . $count . ' ');
         return $count;
     }
 
